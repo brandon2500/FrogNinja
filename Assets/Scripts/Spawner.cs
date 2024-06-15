@@ -11,6 +11,11 @@ public class Spawner : MonoBehaviour
 
     public GameObject[] bugPrefabs;
 
+    public GameObject bombPrefab;
+
+    [Range(0f, 1f)]
+    public float bombChance = 0.05f;
+
     public float minSpawnTime = 0.25f;
     public float maxSpawnTime = 1f;
 
@@ -44,6 +49,11 @@ public class Spawner : MonoBehaviour
         while (enabled)
         {
             GameObject prefab = bugPrefabs[Random.Range(0, bugPrefabs.Length)];
+
+            if (Random.value < bombChance)
+            {
+                prefab = bombPrefab;
+            }
 
             Vector3 position = new Vector3();
             position.x = Random.Range(spawnArea.bounds.min.x, spawnArea.bounds.max.x);

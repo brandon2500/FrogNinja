@@ -13,6 +13,8 @@ public class Bugs : MonoBehaviour
     private Collider bugCollider;
     private ParticleSystem juiceEffects;
 
+    public int points = 1;
+
     private void Awake()
     {
         bugRigidbody = GetComponent<Rigidbody>();
@@ -22,6 +24,8 @@ public class Bugs : MonoBehaviour
 
     private void Slice(Vector3 direction, Vector3 position, float force)
     {
+        FindObjectOfType<GameManager>().IncreaseScore(points);
+
         whole.SetActive(false);
         sliced.SetActive(true);
 
