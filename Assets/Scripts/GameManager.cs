@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
         spawner = FindObjectOfType<Spawner>();
     }
 
-    private void Start()
+    public void Start()
     {
         NewGame();
     }
