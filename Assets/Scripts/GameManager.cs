@@ -22,6 +22,11 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
+        blade.enabled = false;
+    }
+
+    public void StartGame()
+    {
         NewGame();
     }
 
