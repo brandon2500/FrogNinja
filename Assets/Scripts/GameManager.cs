@@ -1,11 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject gameOverGroup;
+    public Text rankText;
+
     public Text scoreText;
     public Image fadeImage;
 
@@ -42,6 +46,21 @@ public class GameManager : MonoBehaviour
 
         ClearScene();
 
+    }
+
+    public async void ToggleGameOverVisibility()
+    {
+        gameOverGroup.SetActive(true);
+        int rank = await BlockchainManagerScript.Instance.GetRank();
+        rankText.text = $"GLOBAL RANK: {rank}";
+    }
+
+    public async void SubmitScore()
+    {
+        rankText.text = $"GLOBAL RANK: ...";
+        await BlockchainManagerScript.Instance.SubmitScore(score);
+        int rank = await BlockchainManagerScript.Instance.GetRank();
+        rankText.text = $"GLOBAL RANK: {rank}";
     }
 
     private void ClearScene()
@@ -94,7 +113,6 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(1f);
 
-        NewGame();
 
         elapsed = 0f;
 
@@ -104,10 +122,13 @@ public class GameManager : MonoBehaviour
             float t = Mathf.Clamp01(elapsed / duration);
             fadeImage.color = Color.Lerp(Color.white, Color.clear, t);
 
+            Time.timeScale = 1f;
             elapsed += Time.unscaledDeltaTime;
 
             yield return null;
         }
+
+        ToggleGameOverVisibility();
     }
 
 
