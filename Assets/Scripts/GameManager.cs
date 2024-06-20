@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Numerics;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +19,10 @@ public class GameManager : MonoBehaviour
     private Spawner spawner;
 
     private int score;
+
+    public Text croakPoolText;
+
+    public UnityEvent<string, int> submitScoreEvent;
 
     private void Awake()
     {
@@ -48,19 +54,16 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public async void ToggleGameOverVisibility()
+    public void ToggleGameOverVisibility()
     {
         gameOverGroup.SetActive(true);
-        int rank = await BlockchainManagerScript.Instance.GetRank();
-        rankText.text = $"GLOBAL RANK: {rank}";
     }
 
     public async void SubmitScore()
     {
-        rankText.text = $"GLOBAL RANK: ...";
-        await BlockchainManagerScript.Instance.SubmitScore(score);
-        int rank = await BlockchainManagerScript.Instance.GetRank();
-        rankText.text = $"GLOBAL RANK: {rank}";
+        string Address = await BlockchainManagerScript.Instance.GetAddress();
+
+        submitScoreEvent.Invoke(Address, score);
     }
 
     private void ClearScene()
@@ -131,6 +134,12 @@ public class GameManager : MonoBehaviour
         ToggleGameOverVisibility();
     }
 
+    public async void LoadPoolBalance()
+    {
+        croakPoolText.text = $"Updating";
+        BigInteger pool = await BlockchainManagerScript.Instance.GetPrizePoolBalance();
+        croakPoolText.text = $"{pool}";
+    }
 
 
 }
