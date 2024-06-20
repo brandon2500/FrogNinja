@@ -10,7 +10,6 @@ using UnityEngine.Events;
 public class GameManager : MonoBehaviour
 {
     public GameObject gameOverGroup;
-    public Text rankText;
 
     public Text scoreText;
     public Image fadeImage;
@@ -21,6 +20,7 @@ public class GameManager : MonoBehaviour
     private int score;
 
     public Text croakPoolText;
+    public Text depositingText;
 
     public UnityEvent<string, int> submitScoreEvent;
 
@@ -141,5 +141,17 @@ public class GameManager : MonoBehaviour
         croakPoolText.text = $"{pool}";
     }
 
+    public async void DepositCroak()
+    {
+        await BlockchainManagerScript.Instance.PayToPlay();
 
+        StartGame();
+
+        depositingText.text = $"";
+    }
+
+    public void ChangeText()
+    {
+        depositingText.text = $"DEPOSITING...";
+    }
 }
