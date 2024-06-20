@@ -30,6 +30,7 @@ public class Leaderboard : MonoBehaviour
         LeaderboardCreator.UploadNewEntry(publicKey, username, score, ((msg) =>
         {
             GetLeaderboard();
+            GameManager.Instance.ScoreSubmittedText();
         }));
     }
 

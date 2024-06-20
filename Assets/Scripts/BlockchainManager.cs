@@ -100,13 +100,27 @@ public class BlockchainManagerScript : MonoBehaviour
         try
         {
             var result = await ThirdwebManager.Instance.SDK.Wallet.Transfer("0x40D5A17d7601817A1Bd8A1D6F9476545C8BDfB07", "250", "0xacb54d07ca167934f57f829bee2cc665e1a5ebef");
-            //StartGame()
+
+            if (result == null)
+            {
+                TxFailed();
+            }
+            else
+            {
+                GameManager.Instance.StartGame();
+            }
+
         }
         catch (Exception e)
         {
             
         }
 
+    }
+
+    private void TxFailed()
+    {
+        GameManager.Instance.Explode();
     }
     
 }

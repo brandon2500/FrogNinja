@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
 
     public Text croakPoolText;
     public Text depositingText;
+    public Text submitScoreText;
+
+    public static GameManager Instance { get; private set; } 
 
     public UnityEvent<string, int> submitScoreEvent;
 
@@ -28,6 +31,15 @@ public class GameManager : MonoBehaviour
     {
         blade = FindObjectOfType<Blade>();
         spawner = FindObjectOfType<Spawner>();
+
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            return;
+        }
     }
 
     public void Start()
@@ -38,6 +50,7 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         NewGame();
+        depositingText.text = $"";
     }
 
     private void NewGame()
@@ -143,15 +156,22 @@ public class GameManager : MonoBehaviour
 
     public async void DepositCroak()
     {
-        await BlockchainManagerScript.Instance.PayToPlay();
+      await BlockchainManagerScript.Instance.PayToPlay();
 
-        StartGame();
-
-        depositingText.text = $"";
     }
 
     public void ChangeText()
     {
         depositingText.text = $"DEPOSITING...";
+    }
+
+    public void SubmittingScoreText()
+    {
+        submitScoreText.text = $"Submitting Score...";
+    }
+
+    public void ScoreSubmittedText()
+    {
+        submitScoreText.text = $"Score Submitted!";
     }
 }

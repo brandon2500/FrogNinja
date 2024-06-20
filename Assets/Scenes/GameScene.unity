@@ -4602,7 +4602,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1467612919}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4645,7 +4645,7 @@ MonoBehaviour:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 21300000, guid: 771390db87d293b499a26589cca57702, type: 3}
     m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 21300000, guid: 7249b9ef1c22c2d4a948fab062263d43, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -4660,6 +4660,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1712932983}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: SubmitScore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1712932983}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: SubmittingScoreText
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4724,6 +4736,7 @@ MonoBehaviour:
   fadeImage: {fileID: 0}
   croakPoolText: {fileID: 0}
   depositingText: {fileID: 0}
+  submitScoreText: {fileID: 0}
   submitScoreEvent:
     m_PersistentCalls:
       m_Calls:
@@ -4844,7 +4857,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4404896360829706404, guid: 379ed01658d62a14484f953196ff19db, type: 3}
       propertyPath: supportedChains.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4404896360829706404, guid: 379ed01658d62a14484f953196ff19db, type: 3}
       propertyPath: supportedChains.Array.data[0].chainId
@@ -6239,6 +6252,7 @@ GameObject:
   - component: {fileID: 1711478231}
   - component: {fileID: 1711478230}
   - component: {fileID: 1711478229}
+  - component: {fileID: 1711478232}
   m_Layer: 5
   m_Name: ReplayButton
   m_TagString: Untagged
@@ -6309,13 +6323,37 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1711478232}
+        m_TargetAssemblyTypeName: GroupToggler, Assembly-CSharp
+        m_MethodName: ToggleGroupVisibility
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1712932983}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: DepositCroak
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1712932983}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: ChangeText
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -6359,6 +6397,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1711478227}
   m_CullTransparentMesh: 1
+--- !u!114 &1711478232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711478227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24c722b65fe6bdb469691c8b92aeb941, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groupsToToggle:
+  - {fileID: 171640166}
+  mainMenuGroup: {fileID: 0}
+  gameGroup: {fileID: 0}
+  gameOverGroup: {fileID: 0}
+  creditsGroup: {fileID: 0}
+  connectWalletGroup: {fileID: 0}
 --- !u!1 &1712932981
 GameObject:
   m_ObjectHideFlags: 0
@@ -6409,6 +6466,7 @@ MonoBehaviour:
   fadeImage: {fileID: 1929006907}
   croakPoolText: {fileID: 1612917291}
   depositingText: {fileID: 1344842201}
+  submitScoreText: {fileID: 1811184580}
   submitScoreEvent:
     m_PersistentCalls:
       m_Calls:
@@ -7596,7 +7654,7 @@ GameObject:
   - component: {fileID: 1811184581}
   - component: {fileID: 1811184580}
   m_Layer: 5
-  m_Name: LoadingNext
+  m_Name: LoadingText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7654,7 +7712,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Submitting Score...
+  m_Text: Submit Your Score!
 --- !u!222 &1811184581
 CanvasRenderer:
   m_ObjectHideFlags: 0
