@@ -22,6 +22,8 @@ public class Leaderboard : MonoBehaviour
                 wallets[i].text = msg[i].Username;
                 scores[i].text = msg[i].Score.ToString();
             }
+
+            GameManager.Instance.RemoveUpdatingText();
         }));
     }
 

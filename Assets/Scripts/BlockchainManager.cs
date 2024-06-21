@@ -121,6 +121,7 @@ public class BlockchainManagerScript : MonoBehaviour
     private void TxFailed()
     {
         GameManager.Instance.Explode();
+        GameManager.Instance.ChangeTextFailed();
     }
     
 }

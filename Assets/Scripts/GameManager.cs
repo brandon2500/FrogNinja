@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
     public Text croakPoolText;
     public Text depositingText;
     public Text submitScoreText;
+    public Text updatingText;
+
+    public Button txBackButton;
 
     public static GameManager Instance { get; private set; } 
 
@@ -51,6 +54,9 @@ public class GameManager : MonoBehaviour
     {
         NewGame();
         depositingText.text = $"";
+        txBackButton.interactable = false;
+        txBackButton.gameObject.SetActive(false);
+        submitScoreText.text = $"Submit Your Score!";
     }
 
     private void NewGame()
@@ -163,6 +169,14 @@ public class GameManager : MonoBehaviour
     public void ChangeText()
     {
         depositingText.text = $"DEPOSITING...";
+        txBackButton.interactable = true;
+        txBackButton.gameObject.SetActive(true);
+    }
+
+    public void ChangeTextFailed()
+    {
+        depositingText.text = $"FAILED";
+        depositingText.color = Color.red;
     }
 
     public void SubmittingScoreText()
@@ -173,5 +187,15 @@ public class GameManager : MonoBehaviour
     public void ScoreSubmittedText()
     {
         submitScoreText.text = $"Score Submitted!";
+    }
+
+    public void UpdateLeaderboardText()
+    {
+        updatingText.text = $"UPDATING...";
+    }
+
+    public void RemoveUpdatingText()
+    {
+        updatingText.text = $"";
     }
 }
