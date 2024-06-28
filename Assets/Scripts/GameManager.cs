@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
         {
 
             float t = Mathf.Clamp01(elapsed / duration);
-            fadeImage.color = Color.Lerp(Color.clear, Color.white, t);
+            fadeImage.color = Color.white;
 
             Time.timeScale = 1f - t;
             elapsed += Time.unscaledDeltaTime;
@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour
         {
 
             float t = Mathf.Clamp01(elapsed / duration);
-            fadeImage.color = Color.Lerp(Color.white, Color.clear, t);
+            fadeImage.color = Color.clear;
 
             Time.timeScale = 1f;
             elapsed += Time.unscaledDeltaTime;
